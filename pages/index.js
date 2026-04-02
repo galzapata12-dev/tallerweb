@@ -8,38 +8,38 @@ export default function Home() {
   return (
     <div style={{
       fontFamily: "Arial",
-      background: "#0a0a0a",
+      background: "linear-gradient(135deg, #0b1f3a, #0d47a1)",
       color: "white",
       minHeight: "100vh",
-      textAlign: "center",
-      padding: "20px"
+      padding: "20px",
+      textAlign: "center"
     }}>
 
-      {/* LOGO */}
-      <img src="/logo.png" width="120" style={{marginBottom:"10px"}} />
+      {/* HEADER */}
+      <div style={{marginBottom:"30px"}}>
+        <img src="/logo.png" style={{
+          width:"280px",
+          maxWidth:"90%"
+        }} />
 
-      {/* TITULO */}
-      <h1 style={{fontSize: "38px", letterSpacing: "2px"}}>
-        BORDERLINE PERFORMANCE
-      </h1>
-
-      <p style={{color:"#aaa"}}>
-        Diagnóstico avanzado • Ingeniería automotriz • Solución real
-      </p>
+        <p style={{
+          color:"#cfd8dc",
+          marginTop:"10px",
+          fontSize:"16px"
+        }}>
+          Diagnóstico automotriz especializado y soluciones técnicas avanzadas
+        </p>
+      </div>
 
       {/* MENSAJE PRINCIPAL */}
-      <div style={{marginTop:"60px"}}>
+      <div style={{marginTop:"40px"}}>
         <h2 style={{fontSize:"26px"}}>
           No cambiamos piezas. Encontramos la causa real.
         </h2>
 
-        <p style={{color:"#bbb", marginTop:"15px"}}>
+        <p style={{color:"#e0e0e0", marginTop:"15px"}}>
           Diagnóstico real, no prueba y error.  
           Atendemos vehículos que otros talleres no pudieron resolver.
-        </p>
-
-        <p style={{color:"#888", fontSize:"14px", marginTop:"10px"}}>
-          Experiencia de agencia • Procesos técnicos profesionales
         </p>
 
         {/* BOTÓN */}
@@ -57,25 +57,28 @@ export default function Home() {
             Agendar diagnóstico
           </button>
         </a>
-
-        <p style={{color:"#aaa", marginTop:"10px"}}>
-          Respuesta directa por WhatsApp
-        </p>
       </div>
 
       {/* SERVICIOS */}
-      <div style={{marginTop:"70px"}}>
-        <h3>Servicios</h3>
+      <div style={{
+        marginTop:"60px",
+        textAlign:"left",
+        maxWidth:"600px",
+        marginLeft:"auto",
+        marginRight:"auto",
+        background:"rgba(255,255,255,0.05)",
+        padding:"20px",
+        borderRadius:"10px"
+      }}>
+        <h3 style={{textAlign:"center"}}>Servicios</h3>
 
-        <p style={{color:"#bbb"}}>
-          • Diagnóstico electrónico avanzado  
-          • Fallas complejas motor y transmisión  
-          • Diagnóstico para flotillas  
-          • Mantenimiento basado en condición real  
-        </p>
+        <p>✔ Diagnóstico computarizado avanzado</p>
+        <p>✔ Ajuste y reparación de motores</p>
+        <p>✔ Suspensión, dirección y sistema de frenos</p>
+        <p>✔ Diagnóstico mecánico, eléctrico y electrónico</p>
       </div>
 
-      {/* IMÁGENES (SIN DISTORSIÓN) */}
+      {/* IMÁGENES */}
       <div style={{
         display:"flex",
         justifyContent:"center",
@@ -83,31 +86,49 @@ export default function Home() {
         marginTop:"40px",
         flexWrap:"wrap"
       }}>
-        <img src="/motor.jpeg" style={{width:"300px", height:"auto", borderRadius:"8px"}} />
-        <img src="/motorreparado.jpeg" style={{width:"300px", height:"auto", borderRadius:"8px"}} />
-        <img src="/transmision.jpeg" style={{width:"300px", height:"auto", borderRadius:"8px"}} />
+        <img src="/motor.jpeg" style={{
+          width:"300px",
+          height:"200px",
+          objectFit:"cover",
+          borderRadius:"10px"
+        }} />
+
+        <img src="/motorreparado.jpeg" style={{
+          width:"300px",
+          height:"200px",
+          objectFit:"cover",
+          borderRadius:"10px"
+        }} />
+
+        <img src="/transmision.jpeg" style={{
+          width:"300px",
+          height:"200px",
+          objectFit:"cover",
+          borderRadius:"10px"
+        }} />
       </div>
 
       {/* UBICACIÓN */}
-      <div style={{marginTop:"70px"}}>
+      <div style={{
+        marginTop:"60px",
+        background:"rgba(0,0,0,0.3)",
+        padding:"20px",
+        borderRadius:"10px"
+      }}>
         <h3>Ubicación</h3>
 
-        <p style={{color:"#bbb"}}>
-          Col. Buena Vista, Calle 20 #1113  
+        <p style={{color:"#ddd"}}>
+          Calle 20 #1113, Col. Buena Vista  
           Matamoros, Tamaulipas
         </p>
 
-        <a 
-          href="https://www.google.com/maps/search/?api=1&query=Matamoros+Tamaulipas+Buena+Vista+Calle+20+1113"
-          target="_blank"
-        >
+        <a href="https://www.google.com/maps/search/?api=1&query=Matamoros+Tamaulipas+Buena+Vista+Calle+20+1113" target="_blank">
           <button style={{
             marginTop:"10px",
-            padding:"10px 25px",
-            background:"#333",
+            padding:"10px 20px",
+            background:"#1565c0",
             color:"white",
             border:"none",
-            cursor:"pointer",
             borderRadius:"5px"
           }}>
             Ver en Google Maps
@@ -116,8 +137,8 @@ export default function Home() {
       </div>
 
       {/* FOOTER */}
-      <div style={{marginTop:"60px", color:"#777", fontSize:"14px"}}>
-        Atención por cita • Diagnóstico siempre se cobra
+      <div style={{marginTop:"50px", color:"#ccc"}}>
+        Atención por cita • Diagnóstico profesional garantizado
       </div>
 
     </div>
