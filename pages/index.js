@@ -8,38 +8,42 @@ export default function Home() {
   return (
     <div style={{
       fontFamily: "Arial",
-      background: "linear-gradient(135deg, #0b1f3a, #0d47a1)",
+      background: "linear-gradient(135deg, #0a192f, #0d47a1, #1a237e)",
       color: "white",
       minHeight: "100vh",
       padding: "20px",
       textAlign: "center"
     }}>
 
-      {/* HEADER */}
-      <div style={{marginBottom:"30px"}}>
-        <img src="/logo.png" style={{
-          width:"280px",
-          maxWidth:"90%"
+      {/* LOGO */}
+      <div style={{marginBottom:"20px"}}>
+        <img src="/logo-white.png" style={{
+          width:"260px",
+          maxWidth:"90%",
+          filter:"drop-shadow(0px 0px 10px rgba(255,255,255,0.2))"
         }} />
-
-        <p style={{
-          color:"#cfd8dc",
-          marginTop:"10px",
-          fontSize:"16px"
-        }}>
-          Diagnóstico automotriz especializado y soluciones técnicas avanzadas
-        </p>
       </div>
+
+      {/* SUBTEXTO */}
+      <p style={{
+        color:"#cfd8dc",
+        fontSize:"15px"
+      }}>
+        Diagnóstico automotriz especializado y soluciones técnicas avanzadas
+      </p>
 
       {/* MENSAJE PRINCIPAL */}
       <div style={{marginTop:"40px"}}>
-        <h2 style={{fontSize:"26px"}}>
-          No cambiamos piezas. Encontramos la causa real.
+        <h2 style={{
+          fontSize:"28px",
+          fontWeight:"bold"
+        }}>
+          Diagnóstico preciso para fallas que otros talleres no pudieron resolver
         </h2>
 
         <p style={{color:"#e0e0e0", marginTop:"15px"}}>
           Diagnóstico real, no prueba y error.  
-          Atendemos vehículos que otros talleres no pudieron resolver.
+          Identificamos la causa raíz antes de reemplazar cualquier componente.
         </p>
 
         {/* BOTÓN */}
@@ -47,16 +51,21 @@ export default function Home() {
           <button style={{
             marginTop:"25px",
             padding:"15px 35px",
-            background:"#00c853",
-            color:"white",
+            background:"#00e676",
+            color:"black",
             border:"none",
             fontSize:"16px",
             cursor:"pointer",
-            borderRadius:"6px"
+            borderRadius:"6px",
+            boxShadow:"0 0 15px rgba(0,230,118,0.4)"
           }}>
             Agendar diagnóstico
           </button>
         </a>
+
+        <p style={{color:"#aaa", marginTop:"10px"}}>
+          Atención directa por WhatsApp
+        </p>
       </div>
 
       {/* SERVICIOS */}
