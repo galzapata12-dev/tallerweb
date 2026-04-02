@@ -12,61 +12,112 @@ export default function Home() {
       color: "white",
       minHeight: "100vh",
       textAlign: "center",
-      padding: "40px"
+      padding: "20px"
     }}>
 
-      {/* HEADER */}
-      <h1 style={{fontSize: "42px", letterSpacing: "2px"}}>
+      {/* LOGO */}
+      <img src="/logo.png" width="120" style={{marginBottom:"10px"}} />
+
+      {/* TITULO */}
+      <h1 style={{fontSize: "38px", letterSpacing: "2px"}}>
         BORDERLINE PERFORMANCE
       </h1>
 
-      <p style={{color:"#aaa", marginTop:"10px"}}>
+      <p style={{color:"#aaa"}}>
         Diagnóstico avanzado • Ingeniería automotriz • Solución real
       </p>
 
       {/* MENSAJE PRINCIPAL */}
-      <div style={{marginTop:"80px"}}>
-        <h2 style={{fontSize:"28px"}}>
+      <div style={{marginTop:"60px"}}>
+        <h2 style={{fontSize:"26px"}}>
           No cambiamos piezas. Encontramos la causa real.
         </h2>
 
         <p style={{color:"#bbb", marginTop:"15px"}}>
-          Especialistas en fallas complejas. Diagnóstico profesional con enfoque técnico.
+          Diagnóstico real, no prueba y error.  
+          Atendemos vehículos que otros talleres no pudieron resolver.
+        </p>
+
+        <p style={{color:"#888", fontSize:"14px", marginTop:"10px"}}>
+          Experiencia de agencia • Procesos técnicos profesionales
         </p>
 
         {/* BOTÓN */}
         <a href={whatsappLink} target="_blank">
           <button style={{
-            marginTop:"30px",
+            marginTop:"25px",
             padding:"15px 35px",
             background:"#00c853",
             color:"white",
             border:"none",
             fontSize:"16px",
             cursor:"pointer",
-            borderRadius:"5px"
+            borderRadius:"6px"
           }}>
             Agendar diagnóstico
           </button>
         </a>
+
+        <p style={{color:"#aaa", marginTop:"10px"}}>
+          Respuesta directa por WhatsApp
+        </p>
       </div>
 
-      {/* IMÁGENES */}
+      {/* SERVICIOS */}
+      <div style={{marginTop:"70px"}}>
+        <h3>Servicios</h3>
+
+        <p style={{color:"#bbb"}}>
+          • Diagnóstico electrónico avanzado  
+          • Fallas complejas motor y transmisión  
+          • Diagnóstico para flotillas  
+          • Mantenimiento basado en condición real  
+        </p>
+      </div>
+
+      {/* IMÁGENES (SIN DISTORSIÓN) */}
       <div style={{
         display:"flex",
         justifyContent:"center",
         gap:"20px",
-        marginTop:"60px",
+        marginTop:"40px",
         flexWrap:"wrap"
       }}>
-        <img src="/motor.jpeg" width="260" style={{borderRadius:"8px"}} />
-        <img src="/motorreparado.jpeg" width="260" style={{borderRadius:"8px"}} />
-        <img src="/transmision.jpeg" width="260" style={{borderRadius:"8px"}} />
+        <img src="/motor.jpeg" style={{width:"300px", height:"auto", borderRadius:"8px"}} />
+        <img src="/motorreparado.jpeg" style={{width:"300px", height:"auto", borderRadius:"8px"}} />
+        <img src="/transmision.jpeg" style={{width:"300px", height:"auto", borderRadius:"8px"}} />
+      </div>
+
+      {/* UBICACIÓN */}
+      <div style={{marginTop:"70px"}}>
+        <h3>Ubicación</h3>
+
+        <p style={{color:"#bbb"}}>
+          Col. Buena Vista, Calle 20 #1113  
+          Matamoros, Tamaulipas
+        </p>
+
+        <a 
+          href="https://www.google.com/maps/search/?api=1&query=Matamoros+Tamaulipas+Buena+Vista+Calle+20+1113"
+          target="_blank"
+        >
+          <button style={{
+            marginTop:"10px",
+            padding:"10px 25px",
+            background:"#333",
+            color:"white",
+            border:"none",
+            cursor:"pointer",
+            borderRadius:"5px"
+          }}>
+            Ver en Google Maps
+          </button>
+        </a>
       </div>
 
       {/* FOOTER */}
-      <div style={{marginTop:"80px", color:"#777", fontSize:"14px"}}>
-        Matamoros, Tamaulipas • Atención por cita
+      <div style={{marginTop:"60px", color:"#777", fontSize:"14px"}}>
+        Atención por cita • Diagnóstico siempre se cobra
       </div>
 
     </div>
