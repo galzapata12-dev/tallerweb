@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Home() {
   const whatsappNumber = "528683905686";
-  const message = "Hola, quiero agendar un diagnóstico para mi vehículo";
+  const message = "Hola, quiero agendar un diagnóstico profesional";
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
   return (
@@ -16,75 +16,85 @@ export default function Home() {
     }}>
 
       {/* LOGO */}
-      <div style={{marginBottom:"20px"}}>
-        <img src="/logo-white.png" style={{
-          width:"260px",
-          maxWidth:"90%",
-          filter:"drop-shadow(0px 0px 10px rgba(255,255,255,0.2))"
-        }} />
-      </div>
+      <img src="/logo-white.png" style={{
+        width:"240px",
+        marginBottom:"20px",
+        filter:"drop-shadow(0px 0px 10px rgba(255,255,255,0.2))"
+      }} />
 
-      {/* SUBTEXTO */}
-      <p style={{
-        color:"#cfd8dc",
-        fontSize:"15px"
-      }}>
-        Diagnóstico automotriz especializado y soluciones técnicas avanzadas
+      {/* HERO */}
+      <h1 style={{fontSize:"32px"}}>
+        Diagnóstico automotriz especializado
+      </h1>
+
+      <p style={{color:"#cfd8dc"}}>
+        No cambiamos piezas. Encontramos la causa real.
       </p>
 
-      {/* MENSAJE PRINCIPAL */}
-      <div style={{marginTop:"40px"}}>
-        <h2 style={{
-          fontSize:"28px",
-          fontWeight:"bold"
+      <a href={whatsappLink} target="_blank">
+        <button style={{
+          marginTop:"25px",
+          padding:"15px 35px",
+          background:"#00e676",
+          color:"black",
+          border:"none",
+          borderRadius:"6px",
+          boxShadow:"0 0 15px rgba(0,230,118,0.4)"
         }}>
-          Diagnóstico preciso para fallas que otros talleres no pudieron resolver
-        </h2>
+          Agendar diagnóstico
+        </button>
+      </a>
 
-        <p style={{color:"#e0e0e0", marginTop:"15px"}}>
-          Diagnóstico real, no prueba y error.  
-          Identificamos la causa raíz antes de reemplazar cualquier componente.
-        </p>
+      {/* PROCESO (CLAVE ESTILO TOYOTA) */}
+      <div style={{marginTop:"70px"}}>
+        <h2>Nuestro proceso</h2>
 
-        {/* BOTÓN */}
-        <a href={whatsappLink} target="_blank">
-          <button style={{
-            marginTop:"25px",
-            padding:"15px 35px",
-            background:"#00e676",
-            color:"black",
-            border:"none",
-            fontSize:"16px",
-            cursor:"pointer",
-            borderRadius:"6px",
-            boxShadow:"0 0 15px rgba(0,230,118,0.4)"
-          }}>
-            Agendar diagnóstico
-          </button>
-        </a>
+        <div style={{
+          display:"flex",
+          flexWrap:"wrap",
+          justifyContent:"center",
+          gap:"20px",
+          marginTop:"20px"
+        }}>
 
-        <p style={{color:"#aaa", marginTop:"10px"}}>
-          Atención directa por WhatsApp
-        </p>
+          {[
+            "Recepción y entrevista técnica",
+            "Escaneo y análisis de datos",
+            "Pruebas físicas y validación",
+            "Diagnóstico raíz comprobado",
+            "Propuesta de solución"
+          ].map((step, i) => (
+            <div key={i} style={{
+              background:"rgba(255,255,255,0.05)",
+              padding:"20px",
+              borderRadius:"10px",
+              width:"220px"
+            }}>
+              <h3>Paso {i+1}</h3>
+              <p style={{fontSize:"14px"}}>{step}</p>
+            </div>
+          ))}
+
+        </div>
       </div>
 
       {/* SERVICIOS */}
       <div style={{
         marginTop:"60px",
-        textAlign:"left",
         maxWidth:"600px",
         marginLeft:"auto",
         marginRight:"auto",
         background:"rgba(255,255,255,0.05)",
         padding:"20px",
-        borderRadius:"10px"
+        borderRadius:"10px",
+        textAlign:"left"
       }}>
         <h3 style={{textAlign:"center"}}>Servicios</h3>
 
         <p>✔ Diagnóstico computarizado avanzado</p>
+        <p>✔ Diagnóstico eléctrico y electrónico</p>
         <p>✔ Ajuste y reparación de motores</p>
-        <p>✔ Suspensión, dirección y sistema de frenos</p>
-        <p>✔ Diagnóstico mecánico, eléctrico y electrónico</p>
+        <p>✔ Suspensión, dirección y frenos</p>
       </div>
 
       {/* IMÁGENES */}
@@ -95,41 +105,37 @@ export default function Home() {
         marginTop:"40px",
         flexWrap:"wrap"
       }}>
-        <img src="/motor.jpeg" style={{
-          width:"300px",
-          height:"200px",
-          objectFit:"cover",
-          borderRadius:"10px"
-        }} />
+        <img src="/motor.jpeg" style={{width:"300px", height:"200px", objectFit:"cover", borderRadius:"10px"}} />
+        <img src="/motorreparado.jpeg" style={{width:"300px", height:"200px", objectFit:"cover", borderRadius:"10px"}} />
+        <img src="/transmision.jpeg" style={{width:"300px", height:"200px", objectFit:"cover", borderRadius:"10px"}} />
+      </div>
 
-        <img src="/motorreparado.jpeg" style={{
-          width:"300px",
-          height:"200px",
-          objectFit:"cover",
-          borderRadius:"10px"
-        }} />
+      {/* DIFERENCIAL */}
+      <div style={{
+        marginTop:"60px",
+        background:"rgba(0,0,0,0.3)",
+        padding:"25px",
+        borderRadius:"10px"
+      }}>
+        <h2>¿Por qué elegirnos?</h2>
 
-        <img src="/transmision.jpeg" style={{
-          width:"300px",
-          height:"200px",
-          objectFit:"cover",
-          borderRadius:"10px"
-        }} />
+        <p>✔ No trabajamos por prueba y error</p>
+        <p>✔ Diagnóstico basado en datos reales</p>
+        <p>✔ Experiencia en fallas complejas</p>
+        <p>✔ Evitamos gastos innecesarios</p>
       </div>
 
       {/* UBICACIÓN */}
       <div style={{
         marginTop:"60px",
-        background:"rgba(0,0,0,0.3)",
+        background:"rgba(255,255,255,0.05)",
         padding:"20px",
         borderRadius:"10px"
       }}>
         <h3>Ubicación</h3>
 
-        <p style={{color:"#ddd"}}>
-          Calle 20 #1113, Col. Buena Vista  
-          Matamoros, Tamaulipas
-        </p>
+        <p>Calle 20 #1113, Col. Buena Vista</p>
+        <p>Matamoros, Tamaulipas</p>
 
         <a href="https://www.google.com/maps/search/?api=1&query=Matamoros+Tamaulipas+Buena+Vista+Calle+20+1113" target="_blank">
           <button style={{
@@ -145,9 +151,10 @@ export default function Home() {
         </a>
       </div>
 
-      {/* FOOTER */}
-      <div style={{marginTop:"50px", color:"#ccc"}}>
-        Atención por cita • Diagnóstico profesional garantizado
+      {/* CIERRE */}
+      <div style={{marginTop:"50px"}}>
+        <h3>Atención únicamente con cita</h3>
+        <p style={{color:"#ccc"}}>Diagnóstico profesional garantizado</p>
       </div>
 
     </div>
