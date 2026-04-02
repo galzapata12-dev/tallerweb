@@ -16,7 +16,7 @@ export default function Home() {
     }}>
 
       {/* LOGO */}
-      <img src="/logo-white.png" style={{
+      <img src="/logo.png" style={{
         width:"240px",
         marginBottom:"20px",
         filter:"drop-shadow(0px 0px 10px rgba(255,255,255,0.2))"
