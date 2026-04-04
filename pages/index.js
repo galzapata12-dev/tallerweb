@@ -6,20 +6,15 @@ export default function Home() {
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
   return (
-    <div style={{
-      fontFamily: "Arial",
-      background: "linear-gradient(135deg, #0a192f, #0d47a1, #1a237e)",
-      color: "white",
-      minHeight: "100vh",
-      padding: "20px",
-      textAlign: "center"
-    }}>
-
-      {/* LOGO */}
-      <img src="/logo.png" style={{
-        width:"240px",
-        marginBottom:"20px",
-        filter:"drop-shadow(0px 0px 10px rgba(255,255,255,0.2))"
+ <div style={{
+  background: "#0f0f0f",
+  padding: "20px",
+  borderRadius: "12px",
+  display: "inline-block",
+  marginBottom: "20px"
+}}>
+  <img src="/logo.png" style={{width:"160px"}} />
+</div>
       }} />
 
       {/* HERO */}
