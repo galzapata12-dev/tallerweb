@@ -16,52 +16,71 @@ export default function Home() {
         minHeight: "100vh",
         background: "linear-gradient(180deg, #0a001a, #2a00ff, #6a00ff)",
         color: "white",
-        textAlign: "center",
-        padding: "50px 20px",
         fontFamily: "Montserrat, sans-serif"
       }}>
 
-        {/* LOGO */}
-        <div style={{ marginBottom: "35px" }}>
+        {/* HERO COMPACTO */}
+        <div style={{
+          minHeight: "90vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "20px"
+        }}>
+
+          {/* LOGO AJUSTADO */}
           <img src="/logo.png" style={{
-            width: "480px",
+            width: "420px",
             maxWidth: "90%",
-            display: "block",
-            margin: "0 auto",
-            filter: "drop-shadow(0 15px 40px rgba(0,0,0,0.8))"
+            marginBottom: "20px",
+            filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.8))"
           }} />
+
+          {/* TEXTO */}
+          <h1 style={{
+            fontSize:"36px",
+            fontWeight:"700",
+            textAlign:"center",
+            maxWidth:"900px"
+          }}>
+            Diagnóstico avanzado para fallas que otros talleres no pudieron resolver
+          </h1>
+
+          <p style={{
+            color:"#cfd8dc",
+            marginTop:"10px"
+          }}>
+            No cambiamos piezas. Encontramos la causa real.
+          </p>
+
+          <p style={{
+            marginTop:"5px",
+            color:"#ddd"
+          }}>
+            Diagnóstico desde $850 MXN · Atención con cita previa
+          </p>
+
+          {/* BOTÓN */}
+          <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+            <button style={{
+              marginTop:"20px",
+              padding:"15px 35px",
+              background:"#00e676",
+              color:"black",
+              border:"none",
+              borderRadius:"8px",
+              fontWeight:"600",
+              cursor:"pointer"
+            }}>
+              Solicitar diagnóstico por WhatsApp
+            </button>
+          </a>
+
         </div>
 
-        {/* HERO */}
-        <h1 style={{fontSize:"38px", fontWeight:"700"}}>
-          Diagnóstico avanzado para fallas que otros talleres no pudieron resolver
-        </h1>
-
-        <p style={{color:"#cfd8dc", marginTop:"10px"}}>
-          No cambiamos piezas. Encontramos la causa real.
-        </p>
-
-        <p style={{marginTop:"10px", color:"#ddd"}}>
-          Diagnóstico desde $850 MXN · Atención con cita previa
-        </p>
-
-        <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-          <button style={{
-            marginTop:"25px",
-            padding:"15px 35px",
-            background:"#00e676",
-            color:"black",
-            border:"none",
-            borderRadius:"8px",
-            fontWeight:"600",
-            cursor:"pointer"
-          }}>
-            Solicitar diagnóstico por WhatsApp
-          </button>
-        </a>
-
         {/* PRUEBA SOCIAL */}
-        <div style={{marginTop:"60px", maxWidth:"700px", margin:"auto"}}>
+        <div style={{maxWidth:"700px", margin:"40px auto"}}>
           <h3>Clientes que ya resolvieron su problema</h3>
 
           <div style={{background:"rgba(255,255,255,0.08)", padding:"20px", borderRadius:"12px", marginTop:"15px"}}>
@@ -76,7 +95,7 @@ export default function Home() {
         </div>
 
         {/* FILTRO */}
-        <div style={{marginTop:"60px"}}>
+        <div style={{marginTop:"50px", textAlign:"center"}}>
           <h3>Este servicio es para ti si:</h3>
           <ul style={{listStyle:"none", padding:0}}>
             <li>✔ Ya fuiste a otros talleres sin solución</li>
@@ -86,10 +105,16 @@ export default function Home() {
         </div>
 
         {/* PROCESO */}
-        <div style={{marginTop:"70px"}}>
-          <h2>Nuestro proceso</h2>
+        <div style={{marginTop:"60px"}}>
+          <h2 style={{textAlign:"center"}}>Nuestro proceso</h2>
 
-          <div style={{display:"flex", flexWrap:"wrap", justifyContent:"center", gap:"20px"}}>
+          <div style={{
+            display:"flex",
+            flexWrap:"wrap",
+            justifyContent:"center",
+            gap:"20px",
+            marginTop:"20px"
+          }}>
             {[
               "Recepción técnica",
               "Escaneo de datos",
@@ -97,7 +122,12 @@ export default function Home() {
               "Diagnóstico real",
               "Propuesta solución"
             ].map((step, i) => (
-              <div key={i} style={{background:"rgba(255,255,255,0.08)", padding:"20px", borderRadius:"12px", width:"200px"}}>
+              <div key={i} style={{
+                background:"rgba(255,255,255,0.08)",
+                padding:"20px",
+                borderRadius:"12px",
+                width:"200px"
+              }}>
                 <h3>Paso {i+1}</h3>
                 <p>{step}</p>
               </div>
@@ -105,38 +135,14 @@ export default function Home() {
           </div>
         </div>
 
-        {/* SERVICIOS */}
-        <div style={{marginTop:"60px", background:"rgba(255,255,255,0.08)", padding:"25px", borderRadius:"12px", maxWidth:"600px", margin:"60px auto"}}>
-          <h3>Servicios</h3>
-          <p>✔ Diagnóstico avanzado</p>
-          <p>✔ Diagnóstico eléctrico</p>
-          <p>✔ Reparación de motor</p>
-          <p>✔ Suspensión y frenos</p>
-        </div>
-
-        {/* IMÁGENES */}
-        <div style={{display:"flex", gap:"20px", justifyContent:"center", flexWrap:"wrap"}}>
-          <img src="/motor.jpeg" style={{width:"300px", borderRadius:"12px"}} />
-          <img src="/motorreparado.jpeg" style={{width:"300px", borderRadius:"12px"}} />
-          <img src="/transmision.jpeg" style={{width:"300px", borderRadius:"12px"}} />
-        </div>
-
-        {/* OBJECIONES */}
-        <div style={{marginTop:"60px", maxWidth:"700px", margin:"60px auto"}}>
-          <h3>Preguntas frecuentes</h3>
-
-          <p><strong>¿Por qué se cobra diagnóstico?</strong><br/>
-          Porque es un proceso técnico especializado.</p>
-
-          <p><strong>¿Incluye reparación?</strong><br/>
-          No. Se diagnostica primero para evitar gastos innecesarios.</p>
-
-          <p><strong>¿Y si ya cambié piezas?</strong><br/>
-          Es justo donde intervenimos mejor.</p>
-        </div>
-
         {/* CTA FINAL */}
-        <div style={{marginTop:"70px", padding:"30px", background:"rgba(0,0,0,0.4)", borderRadius:"14px"}}>
+        <div style={{
+          marginTop:"70px",
+          padding:"30px",
+          background:"rgba(0,0,0,0.4)",
+          borderRadius:"14px",
+          textAlign:"center"
+        }}>
           <h2>Deja de gastar en pruebas innecesarias</h2>
           <p>Agenda un diagnóstico real y encuentra la causa exacta</p>
 
@@ -153,18 +159,6 @@ export default function Home() {
               Agendar diagnóstico ahora
             </button>
           </a>
-        </div>
-
-        {/* UBICACIÓN */}
-        <div style={{marginTop:"60px"}}>
-          <h3>Ubicación</h3>
-          <p>Matamoros, Tamaulipas</p>
-          <p>Col. Buena Vista</p>
-        </div>
-
-        {/* CIERRE */}
-        <div style={{marginTop:"40px"}}>
-          <p>Atención únicamente con cita</p>
         </div>
 
       </div>
