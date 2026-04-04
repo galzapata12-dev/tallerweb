@@ -19,37 +19,39 @@ export default function Home() {
         fontFamily: "Montserrat, sans-serif"
       }}>
 
-        {/* HERO COMPACTO */}
+        {/* HERO AJUSTADO ARRIBA */}
         <div style={{
-          minHeight: "90vh",
+          minHeight: "85vh",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "flex-start", // 👈 sube todo
           alignItems: "center",
-          padding: "20px"
+          paddingTop: "30px", // 👈 controla espacio superior
+          paddingBottom: "20px",
+          textAlign: "center"
         }}>
 
-          {/* LOGO AJUSTADO */}
+          {/* LOGO GRANDE */}
           <img src="/logo.png" style={{
             width: "420px",
             maxWidth: "90%",
-            marginBottom: "20px",
+            marginBottom: "10px", // 👈 menos espacio abajo
             filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.8))"
           }} />
 
-          {/* TEXTO */}
+          {/* TEXTO MÁS ARRIBA */}
           <h1 style={{
             fontSize:"36px",
             fontWeight:"700",
-            textAlign:"center",
-            maxWidth:"900px"
+            maxWidth:"900px",
+            marginTop:"5px" // 👈 pegado al logo
           }}>
             Diagnóstico avanzado para fallas que otros talleres no pudieron resolver
           </h1>
 
           <p style={{
             color:"#cfd8dc",
-            marginTop:"10px"
+            marginTop:"8px"
           }}>
             No cambiamos piezas. Encontramos la causa real.
           </p>
@@ -64,7 +66,7 @@ export default function Home() {
           {/* BOTÓN */}
           <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
             <button style={{
-              marginTop:"20px",
+              marginTop:"18px",
               padding:"15px 35px",
               background:"#00e676",
               color:"black",
@@ -76,6 +78,32 @@ export default function Home() {
               Solicitar diagnóstico por WhatsApp
             </button>
           </a>
+
+          {/* DIRECCIÓN + MAPS */}
+          <div style={{marginTop:"25px"}}>
+            <p style={{color:"#ccc"}}>
+              📍 Calle 20 #1113, Col. Buena Vista, Matamoros, Tamaulipas
+            </p>
+
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Calle+20+1113+Matamoros+Tamaulipas" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <button style={{
+                marginTop:"10px",
+                padding:"10px 20px",
+                background:"#2979ff",
+                color:"white",
+                border:"none",
+                borderRadius:"6px",
+                fontWeight:"600",
+                cursor:"pointer"
+              }}>
+                Ver ubicación en Google Maps
+              </button>
+            </a>
+          </div>
 
         </div>
 
@@ -94,50 +122,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* FILTRO */}
-        <div style={{marginTop:"50px", textAlign:"center"}}>
-          <h3>Este servicio es para ti si:</h3>
-          <ul style={{listStyle:"none", padding:0}}>
-            <li>✔ Ya fuiste a otros talleres sin solución</li>
-            <li>✔ Cambiaste piezas y sigue fallando</li>
-            <li>✔ Buscas diagnóstico real</li>
-          </ul>
-        </div>
-
-        {/* PROCESO */}
-        <div style={{marginTop:"60px"}}>
-          <h2 style={{textAlign:"center"}}>Nuestro proceso</h2>
-
-          <div style={{
-            display:"flex",
-            flexWrap:"wrap",
-            justifyContent:"center",
-            gap:"20px",
-            marginTop:"20px"
-          }}>
-            {[
-              "Recepción técnica",
-              "Escaneo de datos",
-              "Pruebas físicas",
-              "Diagnóstico real",
-              "Propuesta solución"
-            ].map((step, i) => (
-              <div key={i} style={{
-                background:"rgba(255,255,255,0.08)",
-                padding:"20px",
-                borderRadius:"12px",
-                width:"200px"
-              }}>
-                <h3>Paso {i+1}</h3>
-                <p>{step}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* CTA FINAL */}
         <div style={{
-          marginTop:"70px",
+          marginTop:"60px",
           padding:"30px",
           background:"rgba(0,0,0,0.4)",
           borderRadius:"14px",
