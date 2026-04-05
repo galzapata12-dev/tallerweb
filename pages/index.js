@@ -1,8 +1,4 @@
-Para darle ese peso de **liderazgo y autoridad**, agregué una sección completamente nueva llamada **"Líderes en Mantenimiento Integral"** justo después de los servicios. Tiene un diseño con un ligero toque en verde (para diferenciarlo del diagnóstico púrpura) e incluye un "callout" destacado sobre la base de datos.
 
-Como en el mensaje pasado preferiste el código completo para solo pegar, aquí lo tienes **entero, actualizado y listo**:
-
-```jsx
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Head from "next/head";
 
