@@ -8,6 +8,7 @@ const WHATSAPP_NUMBER = "528683905686";
 const MESSAGE = "Hola, quiero agendar un diagnóstico profesional";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(MESSAGE)}`;
 const MAPS_LINK = "https://www.google.com/maps/search/?api=1&query=Calle+20+1113+Matamoros+Tamaulipas";
+const WEB_LINK = "https://borderlineautomotivesolutions.com";
 
 const PROCESS_STEPS = [
   { icon: "🔧", title: "Recepción", desc: "Documentamos tu problema con detalle" },
@@ -54,7 +55,7 @@ const STATS = [
 /* ═══════════════════════════════════════════
    CONTADOR ANIMADO
    ═══════════════════════════════════════════ */
-function Counter({ target, suffix = "", prefix = "" }) {
+function Counter({ target, suffix = "" }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const counted = useRef(false);
@@ -86,7 +87,7 @@ function Counter({ target, suffix = "", prefix = "" }) {
     return () => observer.disconnect();
   }, [target]);
 
-  return <span ref={ref}>{prefix}{count}{suffix}</span>;
+  return <span ref={ref}>{count}{suffix}</span>;
 }
 
 /* ═══════════════════════════════════════════
@@ -97,25 +98,38 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
 
+  /* --- Scroll para navbar --- */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* --- Scroll animations con refs (NO toca DOM directamente) --- */
+  const animRefs = useRef([]);
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("visible");
+          if (e.isIntersecting) {
+            e.target.setAttribute("data-visible", "true");
+          }
         });
       },
       { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
     );
     const t = setTimeout(() => {
-      document.querySelectorAll(".anim, .animScale").forEach((el) => observer.observe(el));
+      animRefs.current.forEach((el) => {
+        if (el) observer.observe(el);
+      });
     }, 150);
     return () => { clearTimeout(t); observer.disconnect(); };
+  }, []);
+
+  const setAnimRef = useCallback((el) => {
+    if (el && !animRefs.current.includes(el)) {
+      animRefs.current.push(el);
+    }
   }, []);
 
   const scrollTo = useCallback((id) => {
@@ -130,19 +144,21 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Diagnóstico Automotriz Avanzado | Matamoros, Tamaulipas</title>
-        <meta name="description" content="Diagnóstico computarizado avanzado para fallas que otros talleres no pudieron resolver. No cambiamos piezas, encontramos la causa real." />
-        <meta name="keywords" content="diagnóstico automotriz, escaneo fallas, taller mecánico Matamoros, check engine, diagnóstico eléctrico" />
+        <title>Borderline Automotive Solutions | Diagnóstico Automotriz Avanzado</title>
+        <meta name="description" content="Diagnóstico computarizado avanzado para fallas que otros talleres no pudieron resolver. No cambiamos piezas, encontramos la causa real. Matamoros, Tamaulipas." />
+        <meta name="keywords" content="diagnóstico automotriz, escaneo fallas, taller mecánico Matamoros, check engine, borderline automotive" />
         <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="Diagnóstico Automotriz Avanzado | Matamoros" />
+        <meta property="og:title" content="Borderline Automotive Solutions | Matamoros" />
         <meta property="og:description" content="Fallas que nadie resolvió. Diagnóstico real desde $850 MXN." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://tusitio.com" />
+        <meta property="og:url" content={WEB_LINK} />
+        <link rel="canonical" href={WEB_LINK} />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "AutoRepair",
-          name: "Diagnóstico Automotriz Avanzado",
+          name: "Borderline Automotive Solutions",
+          url: WEB_LINK,
           address: { "@type": "PostalAddress", streetAddress: "Calle 20 #1113, Col. Buena Vista", addressLocality: "Matamoros", addressRegion: "Tamaulipas", addressCountry: "MX" },
           telephone: "+528683905686",
           description: "Diagnóstico computarizado avanzado para fallas automotrices complejas."
@@ -159,12 +175,13 @@ export default function Home() {
 
         {/* ═══ NAVBAR ═══ */}
         <nav className={`navbar ${scrolled ? "scrolled" : ""}`} role="navigation" aria-label="Navegación principal">
-          <img src="/logo.png" alt="Logo" className="navLogo" />
+          <img src="/logo.png" alt="Borderline Automotive" className="navLogo" />
           <ul className={`navLinks ${mobileMenu ? "mobileOpen" : ""}`}>
             <li><a href="#proceso" onClick={(e) => { e.preventDefault(); scrollTo("proceso"); }}>Proceso</a></li>
             <li><a href="#servicios" onClick={(e) => { e.preventDefault(); scrollTo("servicios"); }}>Servicios</a></li>
             <li><a href="#testimonios" onClick={(e) => { e.preventDefault(); scrollTo("testimonios"); }}>Clientes</a></li>
             <li><a href="#faq" onClick={(e) => { e.preventDefault(); scrollTo("faq"); }}>FAQ</a></li>
+            <li><a href="#contacto" onClick={(e) => { e.preventDefault(); scrollTo("contacto"); }}>Contacto</a></li>
             <li><a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="navCta">Agendar cita</a></li>
           </ul>
           <button className="mobileMenuBtn" onClick={() => setMobileMenu(!mobileMenu)} aria-label={mobileMenu ? "Cerrar menú" : "Abrir menú"} aria-expanded={mobileMenu}>
@@ -174,7 +191,7 @@ export default function Home() {
 
         {/* ═══ HERO ═══ */}
         <section className="hero">
-          <img src="/logo.png" alt="Logo Diagnóstico Automotriz" className="heroLogo" />
+          <img src="/logo.png" alt="Borderline Automotive Solutions" className="heroLogo" />
           <div className="heroBadge">
             <span className="heroBadgeDot" />
             Atención con cita previa
@@ -202,7 +219,7 @@ export default function Home() {
               { icon: "💸", text: "Cambiaste piezas y sigue fallando" },
               { icon: "🎯", text: "Buscas un diagnóstico real de una vez" },
             ].map((item, i) => (
-              <div key={i} className={`trustCard anim`} style={{ transitionDelay: `${i * 0.15}s` }}>
+              <div key={i} ref={setAnimRef} data-anim="up" data-delay={`${i * 0.15}s`} className="trustCard">
                 <span className="trustIcon">{item.icon}</span>
                 <span className="trustText">{item.text}</span>
               </div>
@@ -212,12 +229,12 @@ export default function Home() {
 
         {/* ═══ PROCESO ═══ */}
         <section id="proceso" className="section processSection">
-          <h2 className={`sectionTitle anim`}>Nuestro proceso</h2>
-          <p className={`sectionSubtitle anim`} style={{ transitionDelay: "0.1s" }}>Un método sistemático que garantiza resultados, no suposiciones.</p>
+          <h2 ref={setAnimRef} data-anim="up" className="sectionTitle">Nuestro proceso</h2>
+          <p ref={setAnimRef} data-anim="up" data-delay="0.1s" className="sectionSubtitle">Un método sistemático que garantiza resultados, no suposiciones.</p>
           <div className="timeline">
             <div className="timelineLine" aria-hidden="true" />
             {PROCESS_STEPS.map((s, i) => (
-              <div key={i} className={`timelineStep anim`} style={{ transitionDelay: `${i * 0.12}s` }}>
+              <div key={i} ref={setAnimRef} data-anim="up" data-delay={`${i * 0.12}s`} className="timelineStep">
                 <div className="stepDot">
                   <span className="stepNumber">{i + 1}</span>
                   {s.icon}
@@ -235,7 +252,7 @@ export default function Home() {
         <section className="statsSection" aria-label="Estadísticas">
           <div className="statsGrid">
             {STATS.map((s, i) => (
-              <div key={i} className={`statCard animScale`} style={{ transitionDelay: `${i * 0.1}s` }}>
+              <div key={i} ref={setAnimRef} data-anim="scale" data-delay={`${i * 0.1}s`} className="statCard">
                 <div className="statNumber"><Counter target={s.value} suffix={s.suffix} /></div>
                 <div className="statLabel">{s.label}</div>
               </div>
@@ -245,11 +262,11 @@ export default function Home() {
 
         {/* ═══ SERVICIOS ═══ */}
         <section id="servicios" className="section">
-          <h2 className={`sectionTitle anim`}>Servicios especializados</h2>
-          <p className={`sectionSubtitle anim`} style={{ transitionDelay: "0.1s" }}>Cada servicio comienza con un diagnóstico preciso. Sin adivinanzas.</p>
+          <h2 ref={setAnimRef} data-anim="up" className="sectionTitle">Servicios especializados</h2>
+          <p ref={setAnimRef} data-anim="up" data-delay="0.1s" className="sectionSubtitle">Cada servicio comienza con un diagnóstico preciso. Sin adivinanzas.</p>
           <div className="servicesGrid">
             {SERVICES.map((s, i) => (
-              <div key={i} className={`serviceCard anim`} style={{ transitionDelay: `${i * 0.1}s` }}>
+              <div key={i} ref={setAnimRef} data-anim="up" data-delay={`${i * 0.1}s`} className="serviceCard">
                 <span className="serviceIcon">{s.icon}</span>
                 <h3 className="serviceTitle">{s.title}</h3>
                 <p className="serviceDesc">{s.desc}</p>
@@ -260,11 +277,11 @@ export default function Home() {
 
         {/* ═══ GALERÍA ═══ */}
         <section className="section">
-          <h2 className={`sectionTitle anim`}>Nuestro trabajo</h2>
-          <p className={`sectionSubtitle anim`} style={{ transitionDelay: "0.1s" }}>Casos reales de diagnósticos y reparaciones realizadas.</p>
+          <h2 ref={setAnimRef} data-anim="up" className="sectionTitle">Nuestro trabajo</h2>
+          <p ref={setAnimRef} data-anim="up" data-delay="0.1s" className="sectionSubtitle">Casos reales de diagnósticos y reparaciones realizadas.</p>
           <div className="galleryGrid">
             {GALLERY.map((img, i) => (
-              <div key={i} className={`galleryItem animScale`} style={{ transitionDelay: `${i * 0.12}s` }}>
+              <div key={i} ref={setAnimRef} data-anim="scale" data-delay={`${i * 0.12}s`} className="galleryItem">
                 <img src={img.src} alt={img.label} className="galleryImg" loading="lazy" />
                 <div className="galleryOverlay"><span className="galleryLabel">{img.label}</span></div>
               </div>
@@ -274,11 +291,11 @@ export default function Home() {
 
         {/* ═══ TESTIMONIOS ═══ */}
         <section id="testimonios" className="section">
-          <h2 className={`sectionTitle anim`}>Clientes reales</h2>
-          <p className={`sectionSubtitle anim`} style={{ transitionDelay: "0.1s" }}>Resultados que hablan por nosotros.</p>
+          <h2 ref={setAnimRef} data-anim="up" className="sectionTitle">Clientes reales</h2>
+          <p ref={setAnimRef} data-anim="up" data-delay="0.1s" className="sectionSubtitle">Resultados que hablan por nosotros.</p>
           <div className="testimonialsGrid">
             {TESTIMONIALS.map((t, i) => (
-              <div key={i} className={`testimonialCard anim`} style={{ transitionDelay: `${i * 0.12}s` }}>
+              <div key={i} ref={setAnimRef} data-anim="up" data-delay={`${i * 0.12}s`} className="testimonialCard">
                 <div className="testimonialStars" aria-label="5 estrellas">★★★★★</div>
                 <p className="testimonialText">&ldquo;{t.text}&rdquo;</p>
                 <div className="testimonialAuthor">
@@ -295,16 +312,30 @@ export default function Home() {
 
         {/* ═══ FAQ ═══ */}
         <section id="faq" className="section">
-          <h2 className={`sectionTitle anim`}>Preguntas frecuentes</h2>
-          <p className={`sectionSubtitle anim`} style={{ transitionDelay: "0.1s" }}>Todo lo que necesitas saber antes de agendar.</p>
-          <div className="faqList" role="list">
+          <h2 ref={setAnimRef} data-anim="up" className="sectionTitle">Preguntas frecuentes</h2>
+          <p ref={setAnimRef} data-anim="up" data-delay="0.1s" className="sectionSubtitle">Todo lo que necesitas saber antes de agendar.</p>
+          <div ref={setAnimRef} data-anim="up" data-delay="0.15s" className="faqList" role="list">
             {FAQS.map((f, i) => (
-              <div key={i} className={`faqItem ${openFaq === i ? "open" : ""} anim`} style={{ transitionDelay: `${i * 0.08}s` }} role="listitem">
-                <button className="faqQuestion" onClick={() => toggleFaq(i)} aria-expanded={openFaq === i} aria-controls={`faq-a-${i}`}>
+              <div
+                key={i}
+                className={`faqItem ${openFaq === i ? "open" : ""}`}
+                role="listitem"
+              >
+                <button
+                  className="faqQuestion"
+                  onClick={() => toggleFaq(i)}
+                  aria-expanded={openFaq === i}
+                  aria-controls={`faq-a-${i}`}
+                >
                   {f.q}
                   <span className="faqArrow" aria-hidden="true">▼</span>
                 </button>
-                <div id={`faq-a-${i}`} className="faqAnswer" role="region">
+                <div
+                  id={`faq-a-${i}`}
+                  className="faqAnswer"
+                  role="region"
+                  style={{ maxHeight: openFaq === i ? "300px" : "0px" }}
+                >
                   <div className="faqAnswerInner">{f.a}</div>
                 </div>
               </div>
@@ -312,13 +343,32 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══ UBICACIÓN ═══ */}
-        <section className="section">
-          <div className="locationCard animScale">
-            <p className="locationPin">📍</p>
-            <h3 className="locationTitle">Visítanos</h3>
-            <p className="locationAddress">Calle 20 #1113, Col. Buena Vista<br />Matamoros, Tamaulipas</p>
-            <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="locationBtn">🗺️ Abrir en Google Maps</a>
+        {/* ═══ CONTACTO / UBICACIÓN ═══ */}
+        <section id="contacto" className="section">
+          <h2 ref={setAnimRef} data-anim="up" className="sectionTitle">Contacto</h2>
+          <p ref={setAnimRef} data-anim="up" data-delay="0.1s" className="sectionSubtitle">Todos los canales para comunicarte con nosotros.</p>
+
+          <div className="contactGrid">
+            <div ref={setAnimRef} data-anim="up" data-delay="0.1s" className="contactCard">
+              <span className="contactIcon">📍</span>
+              <h3 className="contactTitle">Ubicación</h3>
+              <p className="contactDetail">Calle 20 #1113, Col. Buena Vista<br />Matamoros, Tamaulipas</p>
+              <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="contactBtn">🗺️ Abrir en Maps</a>
+            </div>
+
+            <div ref={setAnimRef} data-anim="up" data-delay="0.2s" className="contactCard">
+              <span className="contactIcon">💬</span>
+              <h3 className="contactTitle">WhatsApp</h3>
+              <p className="contactDetail">+52 868 390 5686<br />Respuesta rápida</p>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="contactBtn contactBtnGreen">💬 Enviar mensaje</a>
+            </div>
+
+            <div ref={setAnimRef} data-anim="up" data-delay="0.3s" className="contactCard">
+              <span className="contactIcon">🌐</span>
+              <h3 className="contactTitle">Sitio Web</h3>
+              <p className="contactDetail">borderlineautomotivesolutions.com<br />Conócenos más</p>
+              <a href={WEB_LINK} target="_blank" rel="noopener noreferrer" className="contactBtn contactBtnBlue">🌐 Visitar sitio</a>
+            </div>
           </div>
         </section>
 
@@ -336,10 +386,14 @@ export default function Home() {
         {/* ═══ FOOTER ═══ */}
         <footer className="footer">
           <div className="footerInner">
-            <span className="footerText">© {new Date().getFullYear()} Diagnóstico Automotriz Avanzado · Matamoros, Tamps.</span>
+            <div className="footerLeft">
+              <span className="footerBrand">Borderline Automotive Solutions</span>
+              <span className="footerText">© {new Date().getFullYear()} · Matamoros, Tamaulipas</span>
+            </div>
             <div className="footerLinks">
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="footerLink">WhatsApp</a>
-              <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="footerLink">Ubicación</a>
+              <a href={WEB_LINK} target="_blank" rel="noopener noreferrer" className="footerLink">🌐 Web</a>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="footerLink">💬 WhatsApp</a>
+              <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="footerLink">📍 Ubicación</a>
             </div>
           </div>
         </footer>
@@ -377,30 +431,21 @@ export default function Home() {
           --r-xl: 28px;
           --font: 'Montserrat', system-ui, sans-serif;
         }
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         ::selection { background: rgba(124,58,237,0.4); color: white; }
 
         /* ── PAGE ── */
         .page {
-          min-height: 100vh;
-          background: var(--bg);
-          color: var(--t1);
-          font-family: var(--font);
-          overflow-x: hidden;
-          position: relative;
+          min-height: 100vh; background: var(--bg); color: var(--t1);
+          font-family: var(--font); overflow-x: hidden; position: relative;
         }
         .page::before {
-          content: '';
-          position: fixed;
-          inset: 0;
+          content: ''; position: fixed; inset: 0;
           background-image:
             linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-          background-size: 80px 80px;
-          pointer-events: none;
-          z-index: 0;
+          background-size: 80px 80px; pointer-events: none; z-index: 0;
         }
 
         /* ── BLOBS ── */
@@ -418,18 +463,15 @@ export default function Home() {
           max-width: 1100px; margin: 0 auto;
         }
         .navbar.scrolled {
-          background: rgba(5,5,16,0.85);
-          backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-          border-bottom: 1px solid var(--glass-b);
+          background: rgba(5,5,16,0.85); backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-b);
           padding: 12px 24px;
         }
         .navLogo { width: 44px; height: 44px; border-radius: var(--r-sm); object-fit: contain; transition: 0.3s ease; }
         .navbar.scrolled .navLogo { width: 36px; height: 36px; }
-        .navLinks {
-          display: flex; gap: 28px; list-style: none; padding: 0; margin: 0;
-        }
+        .navLinks { display: flex; gap: 24px; list-style: none; padding: 0; margin: 0; }
         .navLinks a {
-          color: var(--t2); text-decoration: none; font-size: 13px; font-weight: 500;
+          color: var(--t2); text-decoration: none; font-size: 12px; font-weight: 500;
           letter-spacing: 0.5px; text-transform: uppercase; transition: 0.3s ease; position: relative;
         }
         .navLinks a::after {
@@ -440,8 +482,8 @@ export default function Home() {
         .navLinks a:hover::after { width: 100%; }
         .navCta {
           background: var(--green) !important; color: #000 !important;
-          padding: 8px 18px; border-radius: var(--r-sm);
-          font-size: 13px !important; font-weight: 600 !important; transition: 0.3s ease !important;
+          padding: 8px 16px; border-radius: var(--r-sm);
+          font-size: 12px !important; font-weight: 600 !important; transition: 0.3s ease !important;
         }
         .navCta::after { display: none !important; }
         .navCta:hover { background: var(--green-dk) !important; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,230,118,0.3); }
@@ -505,8 +547,7 @@ export default function Home() {
         .trustGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
         .trustCard {
           background: var(--glass); border: 1px solid var(--glass-b);
-          border-radius: var(--r-md); padding: 20px 16px; text-align: center;
-          transition: 0.3s ease;
+          border-radius: var(--r-md); padding: 20px 16px; text-align: center; transition: 0.3s ease;
         }
         .trustCard:hover { border-color: var(--glass-bh); background: rgba(255,255,255,0.06); transform: translateY(-3px); }
         .trustIcon { font-size: 28px; margin-bottom: 10px; display: block; }
@@ -605,9 +646,9 @@ export default function Home() {
         .testimonialName { font-size: 14px; font-weight: 600; }
         .testimonialCar { font-size: 12px; color: var(--t3); }
 
-        /* ── FAQ ── */
+        /* ── FAQ (sin animación individual para evitar conflicto) ── */
         .faqList { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
-        .faqItem { background: var(--glass); border: 1px solid var(--glass-b); border-radius: var(--r-md); overflow: hidden; transition: 0.3s ease; }
+        .faqItem { background: var(--glass); border: 1px solid var(--glass-b); border-radius: var(--r-md); overflow: hidden; transition: border-color 0.3s ease, background 0.3s ease; }
         .faqItem:hover { border-color: var(--glass-bh); }
         .faqItem.open { border-color: rgba(124,58,237,0.3); background: rgba(124,58,237,0.04); }
         .faqQuestion {
@@ -615,32 +656,37 @@ export default function Home() {
           font-family: var(--font); font-size: 15px; font-weight: 600;
           padding: 20px 24px; text-align: left; cursor: pointer;
           display: flex; align-items: center; justify-content: space-between;
-          gap: 16px; transition: 0.3s ease;
+          gap: 16px; transition: color 0.3s ease;
         }
         .faqQuestion:hover { color: var(--accent-lt); }
         .faqArrow { font-size: 18px; transition: transform 0.4s ease; flex-shrink: 0; color: var(--t3); }
         .faqItem.open .faqArrow { transform: rotate(180deg); color: var(--accent); }
-        .faqAnswer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-        .faqItem.open .faqAnswer { max-height: 300px; }
+        .faqAnswer { overflow: hidden; transition: max-height 0.4s ease; }
         .faqAnswerInner { padding: 0 24px 20px; font-size: 14px; color: var(--t2); line-height: 1.7; }
 
-        /* ── LOCATION ── */
-        .locationCard {
+        /* ── CONTACTO ── */
+        .contactGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .contactCard {
           background: var(--glass); border: 1px solid var(--glass-b);
-          border-radius: var(--r-lg); padding: 32px; text-align: center;
+          border-radius: var(--r-lg); padding: 32px 24px; text-align: center;
           transition: 0.3s ease;
         }
-        .locationPin { font-size: 28px; margin-bottom: 12px; }
-        .locationTitle { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
-        .locationAddress { color: var(--t2); font-size: 14px; margin-bottom: 20px; line-height: 1.6; }
-        .locationBtn {
+        .contactCard:hover { border-color: var(--glass-bh); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .contactIcon { font-size: 32px; display: block; margin-bottom: 14px; }
+        .contactTitle { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+        .contactDetail { font-size: 14px; color: var(--t2); line-height: 1.6; margin-bottom: 20px; }
+        .contactBtn {
           display: inline-flex; align-items: center; gap: 8px;
-          background: var(--blue); color: white; padding: 14px 28px;
+          background: var(--blue); color: white; padding: 12px 24px;
           border-radius: var(--r-md); font-size: 14px; font-weight: 600;
           text-decoration: none; border: none; cursor: pointer;
           transition: 0.3s ease; font-family: var(--font);
         }
-        .locationBtn:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59,130,246,0.3); }
+        .contactBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59,130,246,0.3); }
+        .contactBtnGreen { background: var(--green); color: #000; }
+        .contactBtnGreen:hover { box-shadow: 0 8px 25px rgba(0,230,118,0.3); }
+        .contactBtnBlue { background: var(--accent); color: white; }
+        .contactBtnBlue:hover { background: #6d28d9; box-shadow: 0 8px 25px var(--accent-glow); }
 
         /* ── CTA FINAL ── */
         .ctaSection { padding: 80px 24px 100px; position: relative; z-index: 1; }
@@ -669,6 +715,8 @@ export default function Home() {
         /* ── FOOTER ── */
         .footer { position: relative; z-index: 1; border-top: 1px solid var(--glass-b); padding: 40px 24px; }
         .footerInner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        .footerLeft { display: flex; flex-direction: column; gap: 4px; }
+        .footerBrand { font-size: 14px; font-weight: 600; color: var(--t1); }
         .footerText { font-size: 13px; color: var(--t3); }
         .footerLinks { display: flex; gap: 20px; }
         .footerLink { color: var(--t2); text-decoration: none; font-size: 13px; transition: 0.3s ease; }
@@ -698,22 +746,34 @@ export default function Home() {
           background: var(--bg2); border-right: 1px solid var(--glass-b); border-top: 1px solid var(--glass-b);
         }
 
-        /* ── SCROLL ANIMATIONS ── */
-        .anim {
+        /* ══════════════════════════════════════
+           SCROLL ANIMATIONS (con data-attributes)
+           Ya NO usa classList directamente,
+           evita conflicto con React re-renders
+           ══════════════════════════════════════ */
+        [data-anim="up"] {
           opacity: 0; transform: translateY(30px);
-          transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+          transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                      transform 0.7s cubic-bezier(0.16,1,0.3,1);
+          transition-delay: var(--d, 0s);
         }
-        .anim.visible { opacity: 1; transform: translateY(0); }
-        .animScale {
+        [data-anim="up"][data-visible="true"] {
+          opacity: 1; transform: translateY(0);
+        }
+        [data-anim="scale"] {
           opacity: 0; transform: scale(0.92);
-          transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+          transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                      transform 0.7s cubic-bezier(0.16,1,0.3,1);
+          transition-delay: var(--d, 0s);
         }
-        .animScale.visible { opacity: 1; transform: scale(1); }
+        [data-anim="scale"][data-visible="true"] {
+          opacity: 1; transform: scale(1);
+        }
 
         /* ── FOCUS ── */
         .faqQuestion:focus-visible, .heroCta:focus-visible, .ctaButton:focus-visible,
         .navCta:focus-visible, .mobileMenuBtn:focus-visible, .floatingWhatsapp:focus-visible,
-        .locationBtn:focus-visible {
+        .contactBtn:focus-visible {
           outline: 2px solid var(--accent); outline-offset: 3px;
         }
 
@@ -733,6 +793,7 @@ export default function Home() {
         @media (max-width: 900px) {
           .testimonialsGrid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
           .statsGrid { grid-template-columns: repeat(2, 1fr); }
+          .contactGrid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
         }
         @media (max-width: 768px) {
           .section { padding: 60px 20px; }
@@ -755,7 +816,7 @@ export default function Home() {
           .galleryGrid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
           .galleryItem { aspect-ratio: 16/10; }
           .ctaBox { padding: 40px 24px; }
-          .footerInner { flex-direction: column; text-align: center; }
+          .footerInner { flex-direction: column; text-align: center; align-items: center; }
           .floatingTooltip { display: none; }
         }
         @media (max-width: 480px) {
@@ -765,7 +826,7 @@ export default function Home() {
         }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-          .anim, .animScale { opacity: 1; transform: none; }
+          [data-anim="up"], [data-anim="scale"] { opacity: 1; transform: none; }
           .blob { display: none; }
         }
       `}</style>
